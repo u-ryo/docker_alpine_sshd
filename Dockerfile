@@ -1,6 +1,6 @@
 FROM alpine:latest
 MAINTAINER uryooo@gmail.com
-ENV GITHUB_USER u-ryo
+ENV GITHUB_USER user
 EXPOSE 22 8080 80 443 9000
 RUN apk update && apk add --no-cache openssh sudo
 RUN sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers
