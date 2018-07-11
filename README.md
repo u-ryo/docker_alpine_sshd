@@ -1,2 +1,2 @@
-# docker_ubuntu_minimal_sshd
-Dockerfile of the base ubuntu image for arukas
+# docker_alpine_sshd
+Dockerfile of the base image for arukas
