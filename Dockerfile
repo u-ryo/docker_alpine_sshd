@@ -9,6 +9,7 @@ RUN set -x \
     && adduser -D -s /bin/bash ${GITHUB_USER} \
     && passwd -u ${GITHUB_USER} \
     && addgroup ${GITHUB_USER} wheel \
+    && mkdir -p /home/${GITHUB_USER}/.ssh/ \
     && curl -s -o /home/${GITHUB_USER}/.ssh/authorized_keys https://github.com/${GITHUB_USER}.keys \
     && chown -R ${GITHUB_USER}:${GITHUB_USER} /home/${GITHUB_USER} \
     && ssh-keygen -A \
