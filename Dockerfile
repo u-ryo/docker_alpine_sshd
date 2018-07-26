@@ -3,7 +3,7 @@ MAINTAINER uryooo@gmail.com
 ENV GITHUB_USER u-ryo
 EXPOSE 22 8080 80 443 9000
 RUN set -x \
-    && apk update && apk add --update --no-cache openssh sudo screen nodejs-npm libstdc++ curl ca-certificates bash zip unzip openssl openjdk8 gradle git mysql \
+    && apk update && apk add --update --no-cache openssh sudo screen nodejs-npm libstdc++ curl ca-certificates bash zip unzip openssl openjdk8 gradle git mysql yarn \
     && sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
     && passwd -d root \
     && adduser -D -s /bin/bash ${GITHUB_USER} \
