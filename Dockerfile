@@ -15,7 +15,7 @@ RUN set -x \
     && chown -R ${GITHUB_USER}:${GITHUB_USER} /home/${GITHUB_USER} \
     && ssh-keygen -A \
     && mkdir -p /run/nginx \
-    && sed -i 's|\treturn 404|\tproxy_pass ${PROXY_PASS}|g' /etc/nginx/conf.d/default.conf \
+    && sed -i 's|\treturn 404|\tproxy_pass '${PROXY_PASS}'|g' /etc/nginx/conf.d/default.conf \
     && update-ca-certificates
 
-CMD /usr/sbin/nginx & /usr/sbin/sshd -D -e "$@"
+CMD /usr/sbin/nginx && /usr/sbin/sshd -D -e "$@"
