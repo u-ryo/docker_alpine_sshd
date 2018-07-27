@@ -1,7 +1,7 @@
 FROM alpine:latest
 MAINTAINER uryooo@gmail.com
 ENV GITHUB_USER u-ryo
-EXPOSE 80 443 22
+EXPOSE 80 22
 RUN set -x \
     && apk update && apk add --update --no-cache openssh sudo screen libstdc++ curl ca-certificates nginx\
     && sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
@@ -15,7 +15,6 @@ RUN set -x \
     && ssh-keygen -A \
     && mkdir -p /run/nginx \
     && sed -i 's|\treturn 404|\tproxy_pass http://walt.mydns.bz:10022/|g' /etc/nginx/conf.d/default.conf \
-    && nginx \
     && update-ca-certificates
-
+RUN nginx
 CMD /usr/sbin/sshd -D -e "$@"
