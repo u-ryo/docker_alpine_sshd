@@ -15,6 +15,7 @@ RUN set -x \
     && ssh-keygen -A \
     && mkdir -p /run/nginx \
     && sed -i 's|\treturn 404|\tproxy_pass http://walt.mydns.bz:10022/|g' /etc/nginx/conf.d/default.conf \
+    && /usr/sbin/nginx \
     && update-ca-certificates
-RUN nginx
+
 CMD /usr/sbin/sshd -D -e "$@"
