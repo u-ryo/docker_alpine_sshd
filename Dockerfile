@@ -1,6 +1,7 @@
 FROM alpine:latest
 MAINTAINER uryooo@gmail.com
 ENV GITHUB_USER u-ryo
+ENV PROXY_PASS http://walt.mydns.bz:10022/
 EXPOSE 80 22
 RUN set -x \
     && apk update && apk add --update --no-cache openssh sudo screen ca-certificates nginx\
@@ -14,7 +15,7 @@ RUN set -x \
     && chown -R ${GITHUB_USER}:${GITHUB_USER} /home/${GITHUB_USER} \
     && ssh-keygen -A \
     && mkdir -p /run/nginx \
-    && sed -i 's|\treturn 404|\tproxy_pass http://walt.mydns.bz:10022/|g' /etc/nginx/conf.d/default.conf \
+    && sed -i 's|\treturn 404|\tproxy_pass ${PROXY_PASS}|g' /etc/nginx/conf.d/default.conf \
     && update-ca-certificates
 
 CMD /usr/sbin/nginx & /usr/sbin/sshd -D -e "$@"
