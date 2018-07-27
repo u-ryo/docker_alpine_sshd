@@ -1,7 +1,7 @@
 FROM alpine:latest
 MAINTAINER uryooo@gmail.com
 ENV GITHUB_USER u-ryo
-EXPOSE 22 8080 80 443 9000
+EXPOSE 80 443 22
 RUN set -x \
     && apk update && apk add --update --no-cache openssh sudo screen libstdc++ curl ca-certificates nginx\
     && sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
