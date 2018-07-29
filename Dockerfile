@@ -9,4 +9,4 @@ RUN set -x \
     && mkdir -p /run/nginx \
     && update-ca-certificates
 COPY entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ./entrypoint.sh
