@@ -1,10 +1,10 @@
 FROM alpine:latest
 MAINTAINER uryooo@gmail.com
-ENV GITHUB_USER u-ryo
-ENV PROXY_PASS http://walt.mydns.bz:10022/
+ENV GITHUB_USER="u-ryo" \
+    PROXY_PASS="http://walt.mydns.bz:10022/"
 EXPOSE 80 22
 RUN set -x \
-    && apk update && apk add --update --no-cache openssh sudo screen ca-certificates nginx\
+    && apk update && apk add --update --no-cache ca-certificates nginx openssh screen sudo\
     && sed -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' -i /etc/sudoers \
     && passwd -d root \
     && adduser -D -s /bin/ash ${GITHUB_USER} \
@@ -17,6 +17,6 @@ RUN set -x \
     && mkdir -p /run/nginx \
     && sed -i 's|\treturn 404|\tproxy_pass '${PROXY_PASS}'|g' /etc/nginx/conf.d/default.conf \
     && update-ca-certificates
-COPY entrypoint.sh /
-# CMD /usr/sbin/nginx && /usr/sbin/sshd && tail -f /var/log/nginx/access.log
-ENTRYPOINT /entrypoint.sh
+# COPY entrypoint.sh /
+CMD /usr/sbin/nginx && /usr/sbin/sshd && tail -f /var/log/nginx/access.log
+# ENTRYPOINT /entrypoint.sh
