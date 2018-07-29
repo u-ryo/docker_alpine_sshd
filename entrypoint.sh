@@ -7,7 +7,7 @@ fi
 adduser -D -s /bin/ash ${GITHUB_USER}
 passwd -u ${GITHUB_USER}
 addgroup ${GITHUB_USER} wheel
-mkdir -p /home/${GITHUB_USER}/.ssh/ \
+mkdir -p /home/${GITHUB_USER}/.ssh/
 wget -q -O /home/${GITHUB_USER}/.ssh/authorized_keys https://github.com/${GITHUB_USER}.keys
 chown -R ${GITHUB_USER}:${GITHUB_USER} /home/${GITHUB_USER}
 
