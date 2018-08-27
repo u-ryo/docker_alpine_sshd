@@ -17,7 +17,7 @@ chown -R ${GITHUB_USER}:${GITHUB_USER} /home/${GITHUB_USER}
 ssh-keygen -A
 
 mkdir -p /run/nginx
-sed -i 's|\treturn 404|\tproxy_pass '${PROXY_PASS}'|g' /etc/nginx/conf.d/default.conf
+sed -i 's|\treturn 404|\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_set_header X-Forwarded-Proto https;\n\t\tproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\t\tproxy_set_header Host $http_host;\n\t\tproxy_redirect http:// https://;\n\t\tproxy_pass '${PROXY_PASS}'|g' /etc/nginx/conf.d/default.conf
 ln -sf /dev/stdout /var/log/nginx/access.log
 ln -sf /dev/stderr /var/log/nginx/error.log
 
